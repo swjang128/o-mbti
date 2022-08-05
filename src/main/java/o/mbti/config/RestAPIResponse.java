@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
  *	status(Integer), result(String), message(String)
  */
 @AllArgsConstructor
-public enum ResponseManager {	
+public enum RestAPIResponse {	
 	/* HttpStatusCode */
 	// Success (2xx)
 	SUCCESS(200, "Success", "성공"),
@@ -33,7 +33,7 @@ public enum ResponseManager {
 	// Database Error (6xx)
 	_600(600, "DB Error", "데이터베이스 에러가 발생하였습니다"),
 	
-	/* OMS Custom Response Code */
+	/* O-MBTI Custom Response Code */
 	// Common (9xx)
 	ERROR_ABORT(999, "Error Abort", "에러가 발생하였습니다"),
 	// Account (1xxx)
@@ -43,9 +43,9 @@ public enum ResponseManager {
 	PASSWORD_DOES_NOT_MATCHED(1005, "Password Does Not Matched", "비밀번호가 일치하지 않습니다"),
 	BAD_CREDENTIALS(1014, "The Account Does Not Exist Or The Password Does Not Matched", "계정이 없거나 비밀번호가 일치하지 않습니다"),
 	BLOCKED_ACCOUNT(1023, "Blocked Account", "계정이 잠겨있습니다. 비밀번호 초기화 후 진행해주세요"),
-	DISABLED_ACCOUNT(1024, "Disabled Account", "비활성화된 계정입니다");
+	DISABLED_ACCOUNT(1024, "Disabled Account", "비활성화된 계정입니다");		
 	
-	public int status;	
+	public Integer status;	
 	public String result;
 	public String message;
 }
