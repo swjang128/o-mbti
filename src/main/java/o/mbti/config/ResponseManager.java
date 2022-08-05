@@ -18,25 +18,34 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.AllArgsConstructor;
+import o.mbti.dto.ApiResponseDTO;
+
 @ControllerAdvice	// 예외 처리를 전역 설정	// Controller, RestController에서만 이 핸들러를 호출하여 사용할 수 있다!
 @RestController
-public class ExceptionManager {
-	Map<String, Object> resultMap = new HashMap<String, Object>();
-	String message = "";
-	int status = 0;
+public class ResponseManager {
+	Map<String, Object> apiResult = new HashMap<String, Object>();	
+	/**
+	 * REST API 응답값 가공
+	 * @return CommonResponseDTO
+	 */	
+	public ApiResponseDTO apiResponse(ApiResponseDTO apiResponseDTO, ApiResponse apiResponse) {
+		apiResponseDTO.setStatus(apiResponse.status);
+		apiResponseDTO.setResult(apiResponse.result);
+		apiResponseDTO.setMessage(apiResponse.message);
+		
+		return apiResponseDTO;
+	}
 	
 	/**
-	 * @Valid 어노테이션에 대한 예외처리
-	 * @param exception
-	 * @return
+	 * @Valid 어노테이션에 대한 예외처리 (400 에러)
+	 * @param exception 
+	 * @return 
 	 */
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public Map<String, Object> methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException exception) {
 		// 필요한 객체 생성		
 		BindingResult bindingResult = exception.getBindingResult();
-		
-		// Set Status
-		status = 401;
 		
 		// Set Message
 		StringBuilder builder = new StringBuilder();
@@ -49,27 +58,29 @@ public class ExceptionManager {
 			builder.append(fieldError.getRejectedValue());
 			builder.append("]");
 		}
-		message = builder.toString();
+		String message = builder.toString();
 		
 		// 예외처리 결과를 리턴 
-		resultMap.put("status",  status);
-		resultMap.put("message",  message);
+		apiResult.put("status", CommonResponse.BAD_REQUEST.status);
+		apiResult.put("result", CommonResponse.BAD_REQUEST.result);
+		apiResult.put("message",  message);
 		
-		return resultMap; 
+		return apiResult; 
 	}
 	
 	/**
-	 * EmptyResultDataAccessException Exception Handler
+	 * EmptyResultDataAccessException Exception Handler (404 에러)
 	 * @param exception
 	 * @return
 	 */
 	@ExceptionHandler(EmptyResultDataAccessException.class)
 	public Map<String, Object> emptyResultDataAccessExceptionHandler(EmptyResultDataAccessException exception) {
 		// 예외처리 결과를 리턴 
-		resultMap.put("status",  404);
-		resultMap.put("message",  "데이터가 존재하지 않습니다");
+		apiResult.put("status",  CommonResponse.EMPTY_RESULT_DATA_ACCESS.status);
+		apiResult.put("result",  CommonResponse.EMPTY_RESULT_DATA_ACCESS.result);
+		apiResult.put("message",  CommonResponse.EMPTY_RESULT_DATA_ACCESS.message);
 		
-		return resultMap;
+		return apiResult;
 	}
 	
 	

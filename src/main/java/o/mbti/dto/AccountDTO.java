@@ -2,10 +2,6 @@ package o.mbti.dto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
-
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;

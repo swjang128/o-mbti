@@ -11,7 +11,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationFa
 import org.springframework.stereotype.Component;
 
 import o.mbti.entity.Account;
-import o.mbti.config.ExceptionManager;
+import o.mbti.config.ResponseManager;
 import o.mbti.repository.AccountRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -30,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AuthFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 	@Autowired
-	ExceptionManager exceptionManager;	
+	ResponseManager responseManager;	
 	private final AccountRepository accountRepository;
 	
 	/**
@@ -38,7 +38,7 @@ public class AuthFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 	 */
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-		String result = exceptionManager.authenticationExceptionHandler(exception);
+		String result = responseManager.authenticationExceptionHandler(exception);
 		String email = request.getParameter("email");
 		// 로그인 실패 횟수가 5번 이상이 되면 계정을 BLOCKED 상태로 바꾸고 이외에는 로그인 실패 횟수 증가	
 		try {

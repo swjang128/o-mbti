@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
-import o.mbti.dto.MbtiDTO;
+import o.mbti.dto.MbtiRequestDTO;
 import o.mbti.service.MbtiService;
 
 /**
@@ -50,21 +50,11 @@ public class MbtiController {
 	 * @return Map<String, Object>
 	 */
 	@GetMapping("result")
-	public Map<String, Object> read(@RequestBody @Valid MbtiDTO mbtiDTO) {
+	public Map<String, Object> result(@RequestBody @Valid MbtiRequestDTO mbtiRequestDTO) {
 		// 기본 변수 설정
 		Map<String, Object> result = new HashMap<String, Object>();
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("introversion", mbtiDTO.getIntroversion());
-		param.put("extroversion", mbtiDTO.getExtroversion());
-		param.put("sensing", mbtiDTO.getSensing());
-		param.put("intuition", mbtiDTO.getIntuition());
-		param.put("thinking", mbtiDTO.getThinking());
-		param.put("feeling", mbtiDTO.getFeeling());
-		param.put("judging", mbtiDTO.getJudging());
-		param.put("perceiving", mbtiDTO.getPerceiving());
-		param.put("name", mbtiDTO.getName());
 
-		return mbtiService.read(param, result);
+		return mbtiService.result(mbtiRequestDTO, result);
 	}
 
 }
