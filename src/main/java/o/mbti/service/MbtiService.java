@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import o.mbti.config.MbtiResponse;
 import o.mbti.config.ResponseManager;
 import o.mbti.config.ApiResponse;
-import o.mbti.config.CommonResponse;
 import o.mbti.dto.ApiResponseDTO;
 import o.mbti.dto.MbtiRequestDTO;
 import o.mbti.dto.MbtiResponseDTO;
@@ -31,18 +30,18 @@ public class MbtiService {
 	public Map<String, Object> result(MbtiRequestDTO mbtiRequestDTO, 
 																			Map<String, Object> result) {
 		// DTO Set
-		ApiResponseDTO commonResponseDTO = new ApiResponseDTO();
+		ApiResponseDTO apiResponseDTO = new ApiResponseDTO();
 		MbtiResponseDTO mbtiResponseDTO = new MbtiResponseDTO();
 		
 		// 파라미터로 받아온 성향을 분석하여 MBTI값을 Response		
 		mbtiResponseDTO = analyze(mbtiRequestDTO, mbtiResponseDTO);
 
-		// Common Response
-		commonResponseDTO = responseManager.apiResponse(commonResponseDTO, ApiResponse.SUCCESS);
+		// Rest API Response
+		apiResponseDTO = responseManager.apiResponse(apiResponseDTO, ApiResponse.SUCCESS);
 		
 		// 결과 리턴
 		result.put("name", mbtiRequestDTO.getName());		// 이름은 요청받은 값 그대로 응답
-		result.put("response", commonResponseDTO);
+		result.put("response", apiResponseDTO);
 		result.put("mbti", mbtiResponseDTO);
 		return result;
 	}

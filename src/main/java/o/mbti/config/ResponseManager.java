@@ -61,8 +61,8 @@ public class ResponseManager {
 		String message = builder.toString();
 		
 		// 예외처리 결과를 리턴 
-		apiResult.put("status", CommonResponse.BAD_REQUEST.status);
-		apiResult.put("result", CommonResponse.BAD_REQUEST.result);
+		apiResult.put("status", ApiResponse.BAD_REQUEST.status);
+		apiResult.put("result", ApiResponse.BAD_REQUEST.result);
 		apiResult.put("message",  message);
 		
 		return apiResult; 
@@ -76,9 +76,9 @@ public class ResponseManager {
 	@ExceptionHandler(EmptyResultDataAccessException.class)
 	public Map<String, Object> emptyResultDataAccessExceptionHandler(EmptyResultDataAccessException exception) {
 		// 예외처리 결과를 리턴 
-		apiResult.put("status",  CommonResponse.EMPTY_RESULT_DATA_ACCESS.status);
-		apiResult.put("result",  CommonResponse.EMPTY_RESULT_DATA_ACCESS.result);
-		apiResult.put("message",  CommonResponse.EMPTY_RESULT_DATA_ACCESS.message);
+		apiResult.put("status",  ApiResponse.EMPTY_RESULT_DATA_ACCESS.status);
+		apiResult.put("result",  ApiResponse.EMPTY_RESULT_DATA_ACCESS.result);
+		apiResult.put("message",  ApiResponse.EMPTY_RESULT_DATA_ACCESS.message);
 		
 		return apiResult;
 	}
