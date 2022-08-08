@@ -1,7 +1,6 @@
 package o.mbti.service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -20,9 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import o.mbti.config.ApiResponse;
 import o.mbti.dto.AccountDTO;
+import o.mbti.dto.AccountRequestDTO;
 import o.mbti.dto.MailDTO;
 import o.mbti.entity.Account;
-import o.mbti.entity.Account.Role;
 import o.mbti.entity.Account.Status;
 import o.mbti.entity.Account.UserStatus;
 import o.mbti.repository.AccountRepository;
@@ -94,33 +93,27 @@ public class AccountService {
 	 * 
 	 * @return List<Account>
 	 */
-	public Map<String, Object> read(Map<String, Object> paramMap, Map<String, Object> resultMap) {
+	public Map<String, Object> read(AccountRequestDTO accountRequestDTO, Map<String, Object> result) {
 		// 기본 변수 설정
-		ApiResponse apiResponse = ApiResponse.SUCCESS;		
+		ApiResponse apiResponse = ApiResponse.SUCCESS;
 		List<Account> account = new ArrayList<Account>();
 		List<AccountDTO> accountDTO = new ArrayList<AccountDTO>();
-		Object accountStatus = paramMap.get("status");
-		Object userStatus = paramMap.get("userStatus");
-		Object role = paramMap.get("role");
-		Object department = paramMap.get("department");
-		Object position = paramMap.get("position");
-		LocalDate startDate = (LocalDate) paramMap.get("startDate");
-		LocalDate endDate = (LocalDate) paramMap.get("endDate");
+		Object accountStatus = accountRequestDTO.getStatus();
+		Object userStatus = accountRequestDTO.getUserStatus();
+		Object role = accountRequestDTO.getRole();
+		LocalDate birthday = (LocalDate) accountRequestDTO.getBirthday();
 		Specification<Account> specification = (root, query, criteriaBuilder) -> null;
 		// 계정 목록 조회
 		try {
-			if (accountStatus != null)
+			if (accountStatus != null) {
 				specification = specification.and(AccountSpecification.findByStatus(accountStatus));
-			if (userStatus != null)
+			}
+			if (userStatus != null) {
 				specification = specification.and(AccountSpecification.findByUserStatus(userStatus));
-			if (role != null)
+			}
+			if (role != null) {
 				specification = specification.and(AccountSpecification.findByRole(role));
-			if (department != null)
-				specification = specification.and(AccountSpecification.findByDepartment(department));
-			if (position != null)
-				specification = specification.and(AccountSpecification.findByPosition(position));
-			if (startDate != null || endDate != null)
-				specification = specification.and(AccountSpecification.findByHireDate(startDate, endDate));
+			}
 			account = accountRepository.findAll(specification);
 			accountDTO = account.stream().map(a -> modelMapper.map(a, AccountDTO.class)).collect(Collectors.toList());
 		} catch (Exception e) {
@@ -128,10 +121,10 @@ public class AccountService {
 			apiResponse = ApiResponse.ERROR_ABORT;
 		}
 		// resultMap에 담기
-		resultMap.put("status", apiResponse.status);
-		resultMap.put("result", apiResponse.result);
-		resultMap.put("accountList", accountDTO);		
-		return resultMap;
+		result.put("status", apiResponse.status);
+		result.put("result", apiResponse.result);
+		result.put("accountList", accountDTO);		
+		return result;
 	}
 	
 	/**

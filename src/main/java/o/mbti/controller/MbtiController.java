@@ -39,7 +39,7 @@ public class MbtiController {
 	 * @param Integer perceiving(인식)
 	 * @return Map<String, Object>
 	 */
-	@GetMapping("result")
+	@GetMapping("")
 	public Map<String, Object> result(@RequestBody @Valid MbtiRequestDTO mbtiRequestDTO) {
 		// 기본 변수 설정
 		Map<String, Object> result = new HashMap<String, Object>();
