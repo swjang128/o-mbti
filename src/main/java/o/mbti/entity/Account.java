@@ -29,33 +29,18 @@ import lombok.RequiredArgsConstructor;
 @Builder
 @Entity
 @EqualsAndHashCode(of="id")
-@Table(name="TB_ACCOUNT")
+@Table(name="ACCOUNT")
 public class Account {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;																					// 사번
 	
-	@Column(length=16)
-	private String department;																// 부서
-	
-	@Column(length=16)
-	private String position;																		// 직급
-	
-	@Column(length=1024)
-	private String photo;																			// 사진
-	
 	@Column(length=64)
 	private String name;				 															// 이름
 
 	@Column(length=64, unique=true)
     private String email;																			// 이메일
-	
-	@Column(length=128)
-	private String address;																		// 주소
-	
-	@Column(length=128)
-	private String addressDetail;															// 상세주소
 	
 	@Column(length=64, insertable=true, updatable=false)
 	private String password;																	// 비밀번호
@@ -75,17 +60,8 @@ public class Account {
 	@Enumerated(EnumType.STRING)
 	private Role role;																				// 권한
 	
-	@Column(length=16, insertable=true)
-    private String phone;																			// 연락처
-	
-	@Column(length=16, insertable=true)
-	private String emergencyContact;													// 비상연락처
-	
 	@Column()
 	private LocalDate birthday;																// 생일
-	
-	@Column(insertable=true)
-	private LocalDate hireDate;																// 입사일
 	
 	@Column(updatable=false)
 	private LocalDateTime lastLoginTime;											// 마지막 로그인 시간

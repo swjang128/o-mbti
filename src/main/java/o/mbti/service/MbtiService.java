@@ -48,14 +48,6 @@ public class MbtiService {
 
 	private MbtiResponseDTO analyze(MbtiRequestDTO mbtiRequestDTO, MbtiResponseDTO mbtiResponseDTO) {
 		// 파라미터로 받아온 값을 변수로 선언
-		Integer introversion = mbtiRequestDTO.getIntroversion();
-		Integer extroversion = mbtiRequestDTO.getExtroversion();
-		Integer sensing = mbtiRequestDTO.getSensing();
-		Integer intuition = mbtiRequestDTO.getIntuition();
-		Integer thinking = mbtiRequestDTO.getThinking();
-		Integer feeling = mbtiRequestDTO.getFeeling();
-		Integer judging = mbtiRequestDTO.getJudging();
-		Integer perceiving = mbtiRequestDTO.getPerceiving();
 		String tendency = "I"; // 주의초점
 		String recognition = "N"; // 인식기능
 		String judgment = "F"; // 판단기능
@@ -63,16 +55,16 @@ public class MbtiService {
 		StringBuffer mbti = new StringBuffer();
 
 		// 파라미터로 받아온 값으로 MBTI 값 가공
-		if (extroversion > introversion) {
+		if (mbtiRequestDTO.getExtroversion() > mbtiRequestDTO.getIntroversion()) {
 			tendency = "E";
 		}
-		if (sensing > intuition) {
+		if (mbtiRequestDTO.getSensing() > mbtiRequestDTO.getIntuition()) {
 			recognition = "S";
 		}
-		if (thinking > feeling) {
+		if (mbtiRequestDTO.getThinking() > mbtiRequestDTO.getFeeling()) {
 			judgment = "T";
 		}
-		if (judging > perceiving) {
+		if (mbtiRequestDTO.getJudging() > mbtiRequestDTO.getPerceiving()) {
 			lifestyle = "J";
 		}
 		mbti.append(tendency);

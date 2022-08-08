@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					// 해당 경로들은 인증이 없어도 접근을 허용
 					.authorizeRequests().antMatchers("/**", "/api/checkEmail/**", "/oms**", "/api/position/**", "/api/department/**", "/api/account/**", "/shop/**").permitAll()
 										// 이외의 다른 모든 요청은 인증된 유저만 접근 허용
-										.anyRequest().authenticated()					
+										.anyRequest().authenticated()
 					.and()					
 					// /login URL로 요청이 들어오면 스프링 시큐리티가 로그인 처리를 한다
 					.formLogin().loginPage("/oms").loginProcessingUrl("/login").successHandler(authSuccessHandler).failureHandler(authFailureHandler)

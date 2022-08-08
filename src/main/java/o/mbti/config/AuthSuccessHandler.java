@@ -64,14 +64,10 @@ public class AuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 		account = accountRepository.findByEmail(authentication.getName()).orElseThrow(() -> new UsernameNotFoundException("존재하지 않는 계정입니다." + authentication.getName()));
 		AccountDTO accountDTO = new AccountDTO(account);
 		session.setAttribute("sessionId", accountDTO.getId());
-		session.setAttribute("sessionDepartment", accountDTO.getDepartment());
-		session.setAttribute("sessionPosition", accountDTO.getPosition());
-		session.setAttribute("sessionPhoto", accountDTO.getPhoto());
 		session.setAttribute("sessionName", accountDTO.getName());
 		session.setAttribute("sessionEmail", accountDTO.getEmail());
 		session.setAttribute("sessionUserStatus",  accountDTO.getUserStatus().getValue());
 		session.setAttribute("sessionRole",  accountDTO.getRole().getValue());
-		session.setAttribute("sessionPhone", accountDTO.getPhone());		
 		session.setAttribute("sessionBirthday", accountDTO.getBirthday());
 		
 		//  모든 작업이 끝나고 이동할 url 설정

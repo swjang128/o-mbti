@@ -26,16 +26,6 @@ import lombok.NoArgsConstructor;
 public class AccountDTO {	
 	private Long id;										// 사번
 	
-	@NotBlank(message="부서를 선택해주세요.")
-	@Size(min=2, max=16, message="부서 값이 잘못되었습니다.")
-	private String department;								// 부서
-	
-	@NotBlank(message="직책을 선택해주세요.")
-	@Size(min=2, max=16, message="직책 값이 잘못되었습니다.")
-	private String position;								// 직책
-	
-	private String photo;									// 사진
-	
 	@NotBlank(message="이름을 입력해주세요.")
 	@Size(min=1, max=64, message="이름은 64자 이하로 입력해주세요.")
 	private String name;				 					// 이름
@@ -45,12 +35,6 @@ public class AccountDTO {
 	@Email(message="이메일 형식에 맞지 않습니다.")
     private String email;									// 이메일
 	
-	@Size(max=128, message="주소 값이 너무 깁니다")
-	private String address;								// 주소
-	
-	@Size(max=128, message="상세주소 값이 너무 깁니다")
-	private String addressDetail;					// 상세주소
-    
 	@NotBlank(message="비밀번호를 입력해주세요.")
 	@Pattern(regexp="(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,20}",
 					message="비밀번호는 영문 대,소문자와 숫자, 특수기호가 적어도 1개 이상씩 포함된 8자 ~ 20자의 비밀번호여야 합니다.")
@@ -66,20 +50,7 @@ public class AccountDTO {
 	
 	private Role role;										// 권한
 	
-	@NotBlank(message="연락처를 입력해주세요.")
-	@Pattern(regexp="(01[016789])(\\d{3,4})(\\d{4})",
-			 message="올바른 연락처를 입력해주세요.")
-	@Size(min=1, max=16, message="올바른 연락처를 입력해주세요")
-    private String phone;									// 연락처
-	
-	@Pattern(regexp="(01[016789])(\\d{3,4})(\\d{4})",
-			 message="올바른 비상 연락처를 입력해주세요.")
-	@Size(min=1, max=16, message="올바른 비상 연락처를 입력해주세요")
-	private String emergencyContact;						// 비상연락처
-	
 	private LocalDate birthday;									// 생일
-	
-	private LocalDate hireDate;									// 입사일
 	
 	private LocalDateTime lastLoginTime;				// 마지막 로그인 시간
 
@@ -91,21 +62,13 @@ public class AccountDTO {
 	public Account toEntity() {
 		return Account.builder()
 				.id(id)
-				.department(department)
-				.position(position)
-				.photo(photo)
 				.name(name)
 				.email(email)
-				.address(address)
-				.addressDetail(addressDetail)
 				.password(password)
 				.status(status)
 				.userStatus(userStatus)
 				.role(role)
-				.phone(phone)
-				.emergencyContact(emergencyContact)
 				.birthday(birthday)
-				.hireDate(hireDate)
 				.lastLoginTime(lastLoginTime)
 				.build();
 	}
@@ -117,22 +80,14 @@ public class AccountDTO {
 	 */
 	public AccountDTO (Account account) {
 		this.id = account.getId();
-		this.department = account.getDepartment();
-		this.position = account.getPosition();
-		this.photo = account.getPhoto();
 		this.name = account.getName();
 		this.email = account.getEmail();
-		this.address = account.getAddress();
-		this.addressDetail = account.getAddressDetail();
 		this.password = account.getPassword();
 		this.failCount = account.getFailCount();
 		this.status = account.getStatus();
 		this.userStatus = account.getUserStatus();
 		this.role = account.getRole();
-		this.phone = account.getPhone();
-		this.emergencyContact = account.getEmergencyContact();
 		this.birthday = account.getBirthday();
-		this.hireDate = account.getHireDate();
 		this.lastLoginTime = account.getLastLoginTime();
 	}
 	
