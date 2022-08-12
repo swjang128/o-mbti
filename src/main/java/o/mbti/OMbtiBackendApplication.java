@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,7 @@ import o.mbti.repository.AccountRepository;
 import o.mbti.service.AccountService;
 
 @SpringBootApplication
+@EnableEurekaClient
 @Slf4j
 public class OMbtiBackendApplication {
 	@Value("${spring.profiles.active}")

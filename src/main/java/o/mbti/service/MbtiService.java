@@ -1,5 +1,8 @@
 package o.mbti.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
@@ -76,6 +79,11 @@ public class MbtiService {
 		mbtiResponseDTO.setType(MbtiResponse.valueOf(new String(mbti)).type);
 		mbtiResponseDTO.setTitle(MbtiResponse.valueOf(new String(mbti)).title);
 		mbtiResponseDTO.setContent(MbtiResponse.valueOf(new String(mbti)).content);
+		
+		Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+		String regDate = new SimpleDateFormat("yyyyMMddHHmmss").format(calendar.getTime());
+		log.info("*********** regDate: {}", regDate);
 		
 		return mbtiResponseDTO;
 	}
