@@ -46,7 +46,7 @@ public enum ApiResponse {
 	BLOCKED_ACCOUNT(1023, "Blocked Account", "계정이 잠겨있습니다. 비밀번호 초기화 후 진행해주세요"),
 	DISABLED_ACCOUNT(1024, "Disabled Account", "비활성화된 계정입니다");		
 	
-	public Integer status;	
+	public int status;	
 	public String result;
 	public String message;
 }
